@@ -1,55 +1,32 @@
-import random
-import webapp2
-
-from google.appengine.ext import ndb
-from google.appengine.ext import vendor
-vendor.add('lib')
 import markovify
 
 
-with open('corpus.txt') as f:
-    text = f.read()
+class BodyCopy(markovify.Text):
+    def generate_paragraph(self, para_count=1, sen_count=1):
+        results = []
+        for i in xrange(para_count):
+            results.append(
+                ' '.join(self.generate_sentence(sen_count))
+            )
+        return results
+
+    def generate_sentence(self, sen_count=1):
+        results = []
+        for i in xrange(sen_count):
+            results.append(self.make_sentence())
+        return results
 
 
-text_model = markovify.Text(text)
+# # Usage
+# with open('../corpus.txt') as f:
+#     text = f.read()
 
 
-def generate_paragraphs(count=1):
-    paragraphs = []
-    for i in xrange(count):
-        paragraphs.append('<p>')
-        paragraphs.append(generate_sentences(random.randint(3, 10)))
-        paragraphs.append('</p>')
-    return ' '.join(paragraphs)
+# copy = BodyCopy(text)
 
 
-def generate_sentences(count=1):
-    sentences = []
-    for i in xrange(count):
-        sentences.append(text_model.make_sentence())
-    return ' '.join(sentences)
+# # Generates a list of 2 sentences
+# print(copy.generate_sentence(2))
 
-
-class Dummy(ndb.Model):
-    title = ndb.TextProperty()
-    summary = ndb.TextProperty()
-    body = ndb.TextProperty()
-    created = ndb.StringProperty()
-
-
-class DummyHandler(webapp2.RequestHandler):
-    for item in xrange(10):
-        e = Dummy(
-            title=text_model.make_short_sentence(70),
-            summary=generate_sentences(random.randint(1, 3)),
-            body=generate_paragraphs(random.randint(3, 10)),
-        )
-        e.put()
-
-    def get(self):
-        self.response.out.write('Done')
-
-
-app = webapp2.WSGIApplication([
-    ('/add_data', DummyHandler)
-], debug=True)
+# # Generates a list of 2 paragraphs. Each paragraph is 2 sentences in length.
+# print(copy.generate_paragraph(2, 2))
