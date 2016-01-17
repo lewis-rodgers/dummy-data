@@ -5,16 +5,14 @@ from dummy_data import BodyCopy
 class BodyCopyTest(unittest.TestCase):
 
     def setUp(self):
-        with open('corpus.txt') as f:
-            self.text = f.read()
-        self.text_model = BodyCopy(self.text)
+        self.text_model = BodyCopy()
 
-    def test_generate_paragraph(self):
-        para = self.text_model.generate_paragraph(2)
+    def test_make_paragraphs(self):
+        para = self.text_model.make_paragraphs(paragraph_count=2)
         assert(len(para) == 2)
 
-    def test_generate_sentence(self):
-        sen = self.text_model.generate_sentence(2)
+    def test_make_sentences(self):
+        sen = self.text_model._make_sentences(sentence_count=2)
         assert(len(sen) == 2)
 
 
