@@ -17,7 +17,7 @@ class BodyCopy(object):
     def __init__(self, text):
         self.markovify = markovify.Text(text)
 
-    def make_sentences(self, sentence_count=1):
+    def sentences(self, sentence_count=1):
         """Return a list of sentences
 
         Args:
@@ -28,7 +28,7 @@ class BodyCopy(object):
             results.append(self.markovify.make_sentence())
         return results
 
-    def make_paragraphs(self, paragraph_count=1, sentence_count=1):
+    def paragraphs(self, paragraph_count=1, sentence_count=1):
         """Return a list of paragraphs
 
         Args:
@@ -38,7 +38,7 @@ class BodyCopy(object):
         results = []
         for _ in xrange(paragraph_count):
             results.append(
-                ' '.join(self.make_sentences(sentence_count))
+                ' '.join(self.sentences(sentence_count))
             )
         return results
 

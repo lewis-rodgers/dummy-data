@@ -11,11 +11,11 @@ class BodyCopyTest(unittest.TestCase):
         self.model = BodyCopy(text)
 
     def test_make_sentences(self):
-        sen = self.model.make_sentences(sentence_count=2)
+        sen = self.model.sentences(sentence_count=2)
         assert(len(sen) == 2)
 
     def test_make_paragraphs(self):
-        para = self.model.make_paragraphs(paragraph_count=2)
+        para = self.model.paragraphs(paragraph_count=2)
         assert(len(para) == 2)
 
 
