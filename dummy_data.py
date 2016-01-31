@@ -1,3 +1,13 @@
+"""An opinionated stack for sourcing faked data
+
+Generate:
+- Sentences and paragraphs that aren't lorem ipsum text, where the source is provided by you in a .txt file.
+- First and last names, sourced from the uinames.com API.
+- File names.
+"""
+
+
+
 """ Generate random, non latin, copy that looks more 'real world'
 
 https://github.com/jsvine/markovify - Markovify is a simple, extensible Markov chain generator. Right now, its main use is for building Markov models of large corpora of text, and generating random sentences from that.
@@ -11,7 +21,6 @@ class BodyCopy(object):
         """Return a list of sentences
 
         Args:
-        char_limit (int): limit amount of characters in a sentence
         sentence_count (int): amount of sentences
         """
         results = []
@@ -23,7 +32,6 @@ class BodyCopy(object):
         """Return a list of paragraphs
 
         Args:
-        char_limit (int): limit amount of characters in a sentence
         paragraph_count (int): amount of paragraphs to create
         sentence_count (int): amount of sentences in a paragraph
         """
